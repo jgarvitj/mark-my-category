@@ -1,0 +1,46 @@
+# Dependency directories
+node_modules/
+.pnpm-store/
+
+# Next.js build output
+/.next/
+/out/
+/.blitz/
+/build/
+
+# Prisma
+# Ignore the generated client to prevent conflicts & keep PRs clean
+# You might choose to include it in your repository if you prefer
+/prisma/generated/
+# Environment variable files
+.env*
+!.env.example
+
+# Local development
+.next/
+.next/cache/
+vercel/
+vercel-debug.log
+netlify/
+netlify-debug.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+.tmp
+.temp
