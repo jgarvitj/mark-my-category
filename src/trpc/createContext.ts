@@ -1,10 +1,18 @@
-// src/trpc/createContext.ts
-export function createContext() {
-    // Create and return your context here
-    // For example, you could include your session/user information
-    return {};
-  }
-  
-  // The type for the context, update according to what your createContext returns
-  export type Context = ReturnType<typeof createContext>;
-  
+// Assuming these imports are correct and necessary for your setup.
+import "server-only";
+import { headers } from "next/headers";
+import { createTRPCContext } from "~/server/api/trpc";
+
+// Updated createContext function
+export const createContext = () => {
+  // Assuming 'headers()' fetches the current request headers appropriately.
+  const heads = new Headers(headers());
+  heads.set("x-trpc-source", "rsc");
+
+  return createTRPCContext({
+    headers: heads,
+  });
+};
+
+// The cache mechanism might be revised based on the specific requirements
+// and capabilities of your React server components setup.
