@@ -1,25 +1,27 @@
-import { createRouter } from '../createRouter';
+// src/trpc/router/user.ts
+import { tRPC } from '../createRouter'; 
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
-import { prisma } from '../prisma';
+import { prisma } from '../../server/prismaClient'; 
+import AppRouter from 'next/dist/client/components/app-router';
 
-export const userRouter = createRouter()
-  .mutation('register', {
-    input: z.object({
+export const userRouter = tRPC.router({
+  // User registration procedure
+  register: tRPC.procedure
+    .input(z.object({
       email: z.string().email(),
-      password: z.string(),
-    }),
-    async resolve({ input }) {
+      password: z.string().min(6), // Simple validation example
+    }))
+    .mutation(async ({ input }) => {
       const { email, password } = input;
-      // Hash the password before saving it to the database
       const hashedPassword = await bcrypt.hash(password, 10);
-      const user = await prisma.user.create({
+      const newUser = await prisma.user.create({
         data: {
           email,
           password: hashedPassword,
         },
       });
-      return user;
-    },
-  });
-  // Add more user-related endpoints as needed
+      return { id: newUser.id, email: newUser.email };
+    }),
+  // You can add more user-related procedures (e.g., login) here
+});
