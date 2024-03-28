@@ -3,7 +3,7 @@ import { loggerLink, httpBatchLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import { useState } from "react";
 import SuperJSON from "superjson";
-import { AppRouter } from "~/server/api/root"; // Ensure this path matches your file structure
+import { AppRouter } from "~/server/api/root";
 
 const createQueryClient = () => new QueryClient();
 
